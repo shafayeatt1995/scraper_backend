@@ -163,6 +163,22 @@ const utils = {
     return d1.getTime() >= d2.getTime();
   },
 
+  checkTeam(_id) {
+    return {
+      $or: [{ adminsID: { $in: [_id] } }, { membersID: { $in: [_id] } }],
+    };
+  },
+
+  urlDetails(url) {
+    try {
+      const domain = new URL(url);
+      domain.hostname = domain.hostname.replace("www.", "");
+      return domain;
+    } catch (error) {
+      return null;
+    }
+  },
+
   isDev: process.env.NODE_ENV === "development",
 };
 
